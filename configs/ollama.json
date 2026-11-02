@@ -1,0 +1,37 @@
+{
+  "repeats": 2,
+  "depth": 5,
+  "summary_stages": [
+    1,
+    5
+  ],
+  "seed": 1729,
+  "workers": 1,
+  "max_attempts": 2,
+  "experiments": [
+    "A",
+    "B",
+    "C",
+    "RAG"
+  ],
+  "model": {
+    "kind": "ollama",
+    "base_url": "http://127.0.0.1:11434",
+    "model": "REPLACE_WITH_INSTALLED_MODEL",
+    "revision": "RECORD_MODEL_DIGEST",
+    "temperature": 0.3,
+    "max_tokens": 512,
+    "timeout": 180
+  },
+  "retrieval": {
+    "chunk_size": 320,
+    "chunk_overlap": 60,
+    "top_k": 2,
+    "embedding": {
+      "kind": "ollama",
+      "base_url": "http://127.0.0.1:11434",
+      "model": "REPLACE_WITH_INSTALLED_EMBEDDING_MODEL",
+      "revision": "RECORD_MODEL_DIGEST"
+    }
+  }
+}

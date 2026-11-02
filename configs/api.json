@@ -1,0 +1,41 @@
+{
+  "repeats": 2,
+  "depth": 5,
+  "summary_stages": [
+    1,
+    5
+  ],
+  "seed": 1729,
+  "workers": 1,
+  "max_attempts": 2,
+  "experiments": [
+    "A",
+    "B",
+    "C",
+    "RAG"
+  ],
+  "model": {
+    "kind": "openai_compatible",
+    "base_url": "https://api.openai.com/v1",
+    "api_key_env": "OPENAI_API_KEY",
+    "model": "gpt-4o-mini",
+    "revision": "gpt-4o-mini (OpenAI API)",
+    "temperature": 0.3,
+    "max_tokens": 512,
+    "max_tokens_field": "max_completion_tokens",
+    "supports_seed": false,
+    "timeout": 180
+  },
+  "retrieval": {
+    "chunk_size": 320,
+    "chunk_overlap": 60,
+    "top_k": 2,
+    "embedding": {
+      "kind": "openai_compatible",
+      "base_url": "https://api.openai.com/v1",
+      "api_key_env": "OPENAI_API_KEY",
+      "model": "text-embedding-3-small",
+      "revision": "text-embedding-3-small (OpenAI API)"
+    }
+  }
+}

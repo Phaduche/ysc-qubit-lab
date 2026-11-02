@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+workspace/
+*.lock
+*.sqlite-wal
+*.sqlite-shm
+
+__pycache__/
+workspace/
+.runtime/
+*.sqlite
+.streamlit/secrets.toml
+.DS_Store
+.claude/

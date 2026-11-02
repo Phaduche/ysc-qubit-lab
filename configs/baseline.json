@@ -1,0 +1,31 @@
+{
+  "repeats": 2,
+  "depth": 5,
+  "summary_stages": [
+    1,
+    5
+  ],
+  "seed": 1729,
+  "workers": 1,
+  "max_attempts": 2,
+  "experiments": [
+    "A",
+    "B",
+    "C",
+    "RAG"
+  ],
+  "model": {
+    "kind": "extractive_baseline",
+    "model": "extractive-baseline-v1"
+  },
+  "retrieval": {
+    "chunk_size": 320,
+    "chunk_overlap": 60,
+    "top_k": 2,
+    "embedding": {
+      "kind": "hash_ngram",
+      "model": "hash-ngram-v1",
+      "dimensions": 512
+    }
+  }
+}
