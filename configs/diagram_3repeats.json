@@ -1,0 +1,40 @@
+{
+  "repeats": 3,
+  "depth": 5,
+  "summary_stages": [
+    1,
+    5
+  ],
+  "seed": 1729,
+  "workers": 1,
+  "max_attempts": 2,
+  "experiments": [
+    "A",
+    "B",
+    "C",
+    "RAG"
+  ],
+  "model": {
+    "kind": "openai_compatible",
+    "base_url": "http://127.0.0.1:8765/v1",
+    "model": "ysc-qwen-0.5b",
+    "revision": "Qwen2.5-0.5B-Instruct-GGUF@9217f5d Q4_K_M sha256:74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+    "temperature": 0.3,
+    "max_tokens": 512,
+    "supports_seed": true,
+    "timeout": 180
+  },
+  "retrieval": {
+    "chunk_size": 320,
+    "chunk_overlap": 60,
+    "top_k": 2,
+    "embedding": {
+      "kind": "openai_compatible",
+      "base_url": "http://127.0.0.1:8766/v1",
+      "model": "ysc-nomic-embed",
+      "revision": "nomic-ai/nomic-embed-text-v1.5-GGUF@0188c9bf409793f810680a5a431e7b899c46104c Q4_K_M",
+      "document_prefix": "search_document: ",
+      "query_prefix": "search_query: "
+    }
+  }
+}
