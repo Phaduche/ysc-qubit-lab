@@ -3,8 +3,8 @@
 프롬프트에 따라 반복 요약에서 핵심 정보가 얼마나 남는지 보는 Qubit 팀(민족사관고 신민기, 이시우, 우승제)의 실험 도구입니다.
 2026 YSC 발표대회 보조 포스터의 QR이 이 저장소의 웹 페이지로 연결됩니다.
 
-- 웹(QR 연결): https://phaduche.github.io/ysc-qubit-lab/ → Streamlit 앱 https://ysc-qubit-lab.streamlit.app
-- 웹 화면: `streamlit_app.py` — 원문을 넣으면 핵심 키워드 10개 추출 → P1/P2/P3 프롬프트로 요약 → 핵심 사실 보존율, 남은 항목, 출력 토큰 수를 보여 줌
+- 웹(QR 연결): https://phaduche.github.io/ysc-qubit-lab/ — `docs/index.html` 한 장짜리 분석 화면. 서버 없이 브라우저 안에서 [WebLLM](https://github.com/mlc-ai/web-llm)으로 Qwen2.5-0.5B-Instruct를 실행해, 원문을 넣으면 핵심 키워드 10개 자동 추출 → P1/P2/P3 프롬프트로 요약 → 핵심 사실 보존율, 남은 항목, 입력·출력 토큰 수를 보여 줌 (WebGPU가 되는 브라우저 필요, 처음 한 번 모델 약 290MB 다운로드)
+- Streamlit 버전: `streamlit_app.py` — 같은 분석 화면을 API 모델로 돌리는 버전 (배포하려면 아래 절차)
 - 전체 연구실(실험 A/B/C, RAG, 결과 다운로드): `app.py` — 로컬 llama-server 전용 (아래 원래 README 참고)
 
 ## 웹 배포 (Streamlit Community Cloud)

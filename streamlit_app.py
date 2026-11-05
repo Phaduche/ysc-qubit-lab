@@ -19,4 +19,4 @@ for key in ('OPENAI_API_KEY',):
         pass
 os.environ.setdefault('YSC_DEFAULT_CONFIG', 'api.json')
 keyword_analyzer.render(ROOT)
-st.caption('Qubit (민족사관고등학교 신민기, 이시우, 우승제) · 2026 YSC 발표대회 · 프롬프트별 핵심 정보 보존율 연구')
+st.caption('2026 YSC 발표대회 시연용 · 프롬프트별 핵심 정보 보존율 연구')
