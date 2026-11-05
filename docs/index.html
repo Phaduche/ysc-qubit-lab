@@ -37,7 +37,6 @@ th{background:#f7f8fa;font-weight:700;position:sticky;top:0}
 td.ok{color:var(--ok)} td.bad{color:var(--bad)}
 progress{width:100%;height:8px;margin-top:8px}
 .status{font-size:13px;color:var(--muted);margin-top:6px;white-space:pre-wrap}
-footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
 </style>
 </head>
 <body>
@@ -46,14 +45,12 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
 <div id="gpuWarn" class="err" hidden>이 브라우저에서는 WebGPU를 쓸 수 없어 모델을 실행할 수 없습니다. 노트북의 최신 Chrome 또는 Edge(또는 iOS 26 이상 Safari)에서 열어 주세요.</div>
 <details>
  <summary>모델 설정</summary>
- <label for="model">분석 모델 (이 브라우저 안에서 실행)</label>
+ <label for="model">분석 모델</label>
  <select id="model">
-  <option value="Qwen2.5-0.5B-Instruct-q4f16_1-MLC">Qwen2.5-0.5B-Instruct · 실험의 로컬 모델과 같은 계열 · 약 290MB</option>
-  <option value="Qwen2.5-1.5B-Instruct-q4f16_1-MLC">Qwen2.5-1.5B-Instruct · 더 큰 모델 · 약 880MB</option>
+  <option value="Qwen2.5-0.5B-Instruct-q4f16_1-MLC">Qwen2.5-0.5B-Instruct</option>
+  <option value="Qwen2.5-1.5B-Instruct-q4f16_1-MLC">Qwen2.5-1.5B-Instruct</option>
  </select>
- <p class="note">처음 실행할 때 모델 파일을 한 번 내려받고, 그다음부터는 브라우저에 저장된 파일을 씁니다. 원문은 서버로 보내지 않습니다.<br>
- 요약 설정: 실험과 같은 시스템 프롬프트, temperature 0.3, seed 1729, 최대 512토큰. 키워드 추출: temperature 0, 원문에서 뽑은 후보 안에서만 선택.</p>
- <button id="loadBtn">모델 미리 불러오기</button>
+ <p style="margin:12px 0 2px"><button id="loadBtn">모델 미리 불러오기</button></p>
 </details>
 <div class="cols">
  <section>
@@ -101,9 +98,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
 <section id="histBox" hidden>
  <h2 style="margin-top:28px">이 화면에서 실행한 기록</h2>
  <div class="tablewrap"><table><thead><tr><th>#</th><th>프롬프트</th><th>보존율</th><th>남은 항목</th><th>입력 토큰</th><th>출력 토큰</th><th>모델</th></tr></thead><tbody id="hist"></tbody></table></div>
- <p class="note">같은 원문으로 P1, P2, P3를 차례로 실행하면 프롬프트별 보존율과 토큰 수를 비교할 수 있습니다.</p>
 </section>
-<footer>2026 YSC 발표대회 시연용 · 모든 계산은 이 브라우저 안에서 이루어집니다.</footer>
 </main>
 <script type="module">
 import * as webllm from "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.85/+esm";
@@ -161,7 +156,7 @@ async function ensureEngine() {
   const id = $('model').value;
   if (engine && engineModel === id) return engine;
   if (!navigator.gpu) throw new Error($('gpuWarn').textContent);
-  $('status').textContent = '모델을 불러오는 중… (처음 한 번은 내려받는 데 시간이 걸립니다)';
+  $('status').textContent = '모델을 불러오는 중…';
   if (engine) await engine.reload(id);
   else engine = await webllm.CreateMLCEngine(id, {initProgressCallback: progress});
   engineModel = id;
@@ -222,9 +217,7 @@ $('runBtn').onclick = async () => {
     $('status').textContent = '키워드를 고르는 중…';
     const ex = await extract(source);
     $('keywords').value = ex.keywords.join(', ');
-    $('kwNote').textContent = ex.fromModel === 10
-      ? `모델이 원문 후보 ${ex.nCands}개 중 10개를 골랐습니다.`
-      : `모델이 고른 ${ex.fromModel}개 + 원문 빈도순 보충 ${10 - ex.fromModel}개`;
+    $('kwNote').textContent = ex.fromModel === 10 ? '' : `모델이 고른 ${ex.fromModel}개 + 원문 빈도순 보충 ${10 - ex.fromModel}개`;
     $('numbers').value = [...new Set(source.match(/(?<![0-9])\d+(?:\.\d+)?(?:%|년|월|일|개|회|시간|분|초|시|명|팀|점|배|위|세|원|km|kg|cm|mm|m)?/g) || [])].join(', ');
     $('status').textContent = PROMPT_NAMES[pid] + '로 요약하는 중…';
     const sm = await generate(PROMPTS[pid] + '\n자료:\n' + source, {maxTokens: 512, temperature: 0.3});
